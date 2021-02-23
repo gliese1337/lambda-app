@@ -20,14 +20,19 @@ If the submission has been graded and the student has a failing grade for that a
 the submit button should be available for the student to re-submit the assignment as long
 as the due date does not prevent submission.
 
-There should be a message above the list of assignments indicating how many assignments
-the student has been given and how many the student has passed.
-
 The MVP should include fake data in the shape that represents a proposed schema,
 but the schema does not need to be defined in SQL and the fake data can live in memory.
 */
 
+export async function getServerSideProps(_context) {
+  return {
+    props: {},
+  }
+}
+
 export default function Home() {
+  const assigned = 0;
+  const passed = 0;
   return (
     <div className={styles.container}>
       <Head>
@@ -35,21 +40,23 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
+      <main>
         <h1 className={styles.title}>
           Assignments
         </h1>
-
+        {/*
+        There should be a message above the list of assignments indicating how many assignments
+the student has been given and how many the student has passed.
+        */}
         <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
+          Assigned: {assigned} Passed: {passed}
         </p>
 
         <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
+          <div className={styles.card}>
             <h3>Documentation &rarr;</h3>
             <p>Find in-depth information about Next.js features and API.</p>
-          </a>
+          </div>
 
           <a href="https://nextjs.org/learn" className={styles.card}>
             <h3>Learn &rarr;</h3>
@@ -75,17 +82,6 @@ export default function Home() {
           </a>
         </div>
       </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
     </div>
   );
 }
