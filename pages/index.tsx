@@ -1,56 +1,14 @@
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
-
-type HomeProps = {
-  assignments: {
-    name: string,
-    description: string,
-    submitted: boolean,
-    grade: number,
-    due: number,
-  }[]
-};
+import { day, HomeProps } from '../utils';
 
 export async function getServerSideProps(_context) {
-  /*
-  The MVP should include fake data in the shape that represents a proposed schema,
-  but the schema does not need to be defined in SQL and the fake data can live in memory.
-  */
-  return {
-    props: {
-      assignments: [
-        {
-          name: "Documentation",
-          description: "Find in-depth information about Next.js features and API.",
-          submitted: true,
-          grade: 90,
-          due: Date.now() - day * 40,
-        }, {
-          name: "Learn",
-          description: "Learn about Next.js in an interactive course with quizzes!",
-          submitted: true,
-          grade: 80,
-          due: Date.now() - day * 20,
-        }, {
-          name: "Examples",
-          description: "Discover and deploy boilerplate example Next.js projects.",
-          submitted: true,
-          grade: 75,
-          due: Date.now() - day * 10,
-        }, {
-          name: "Deploy",
-          description: "Instantly deploy your Next.js site to a public URL with Vercel",
-          submitted: false,
-          grade: NaN,
-          due: Date.now() + day * 2,
-        }
-      ]
-    } as HomeProps,
-  }
+  const r = await fetch('http://localhost:3000/api/assignments');
+  const props = await r.json();
+  return { props };
 }
 
 const cardstyles = [styles.normal, styles.failed, styles.passed];
-const day = 1000 * 60 * 60 * 24;
 
 export default function Home(props: HomeProps) {
   const { assignments } = props;
